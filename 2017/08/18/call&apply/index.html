@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="call实现继承call这里call的意思就是把animal的方法应用到cat这个对象身上，也就是animal的属性创建到了cat里面,所以cat就继承了animal的方法 123456789101112131415function animal(a, b) &amp;#123;            this.type = &amp;apos;animal&amp;apos;            this.behav">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript中的apply和call继承">
+<meta property="og:url" content="http://yoursite.com/2017/08/18/call&apply/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="call实现继承call这里call的意思就是把animal的方法应用到cat这个对象身上，也就是animal的属性创建到了cat里面,所以cat就继承了animal的方法 123456789101112131415function animal(a, b) &amp;#123;            this.type = &amp;apos;animal&amp;apos;            this.behav">
+<meta property="og:image" content="https://cloud.githubusercontent.com/assets/17243165/18807350/22b89724-8277-11e6-9632-1434325ac531.png">
+<meta property="og:image" content="https://cloud.githubusercontent.com/assets/17243165/18815297/9fb1ec3e-835e-11e6-8833-bb8088d8d8ae.png">
+<meta property="og:image" content="https://cloud.githubusercontent.com/assets/17243165/18815677/fde42082-8369-11e6-979d-580453904414.png">
+<meta property="og:updated_time" content="2017-08-09T07:59:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript中的apply和call继承">
+<meta name="twitter:description" content="call实现继承call这里call的意思就是把animal的方法应用到cat这个对象身上，也就是animal的属性创建到了cat里面,所以cat就继承了animal的方法 123456789101112131415function animal(a, b) &amp;#123;            this.type = &amp;apos;animal&amp;apos;            this.behav">
+<meta name="twitter:image" content="https://cloud.githubusercontent.com/assets/17243165/18807350/22b89724-8277-11e6-9632-1434325ac531.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/18/call&apply/"/>
+
+
+
+
+
+  <title>Javascript中的apply和call继承 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/call&apply/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript中的apply和call继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-18T10:14:09+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="call实现继承"><a href="#call实现继承" class="headerlink" title="call实现继承"></a>call实现继承</h2><p>call这里call的意思就是把animal的方法应用到cat这个对象身上，也就是animal的属性创建到了cat里面,所以cat就继承了animal的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function animal(a, b) &#123;</span><br><span class="line">            this.type = &apos;animal&apos;</span><br><span class="line">            this.behavior = function()&#123;</span><br><span class="line">                console.log(this.type+&quot; is running&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function cat(a, b) &#123;</span><br><span class="line">            this.name = &apos;wsscat&apos;</span><br><span class="line">            //这里call的意思就是把animal的方法应用到cat这个对象身上</span><br><span class="line">            //所以cat就继承了animal的方法</span><br><span class="line">            animal.call(this);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        console.log(new cat())</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><a href="https://cloud.githubusercontent.com/assets/17243165/18807350/22b89724-8277-11e6-9632-1434325ac531.png" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/17243165/18807350/22b89724-8277-11e6-9632-1434325ac531.png" alt=""></a></p>
+<h2 id="call实现多重继承"><a href="#call实现多重继承" class="headerlink" title="call实现多重继承"></a>call实现多重继承</h2><p>当然我们可以继承多个构造函数，这就是多重继承</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function animal(a, b) &#123;</span><br><span class="line">            this.type = &apos;animal&apos;</span><br><span class="line">            this.behavior = function()&#123;</span><br><span class="line">                console.log(this.type+&quot; is running&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function wsscat(a, b) &#123;</span><br><span class="line">            this.age = 0</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function cat(a, b) &#123;</span><br><span class="line">            this.name = &apos;wsscat&apos;</span><br><span class="line">            //这里call的意思就是把animal的方法应用到cat这个对象身上</span><br><span class="line">            //所以cat就继承了animal的方法</span><br><span class="line">            animal.call(this);</span><br><span class="line">            wsscat.call(this);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        console.log(new cat())</span><br></pre></td></tr></table></figure>
+<p><a href="https://cloud.githubusercontent.com/assets/17243165/18815297/9fb1ec3e-835e-11e6-8833-bb8088d8d8ae.png" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/17243165/18815297/9fb1ec3e-835e-11e6-8833-bb8088d8d8ae.png" alt=""></a></p>
+<p>只要在cat的构造函数中有多个call就可以，此时的cat继承了wsscat和animal</p>
+<h2 id="apply和call的区别"><a href="#apply和call的区别" class="headerlink" title="apply和call的区别"></a>apply和call的区别</h2><p>其实apply和call这两个方法基本上是差不多的，区别在于call的第二个参数可以是任意类型，而apply的第二个参数必须是数组，也可以是arguments（即传给构造函数的参数）</p>
+<p>例如我们把上面的代码稍微改一下，如果此时我在new构造函数cat的时候传入参数<code>new cat(&#39;wsscat&#39;,&#39;cute&#39;)</code>我们的cat能接收arguments，但是如果此时继承是<code>animal.call(this)</code>，没有给call传第二个参数的时候，生成的对象中type的值就会是undefined，所以为了让这个值能够让animal接收，我们可以在animal中传入第二个参数animal.call(this,type)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function animal(type) &#123;</span><br><span class="line">            this.type = type</span><br><span class="line">            this.behavior = function()&#123;</span><br><span class="line">                console.log(this.type+&quot; is running&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">        function cat(name, type) &#123;</span><br><span class="line">            this.name = name</span><br><span class="line">            //这里call的意思就是把animal的方法应用到cat这个对象身上</span><br><span class="line">            //所以cat就继承了animal的方法</span><br><span class="line">            //animal.call(this);//type undefined</span><br><span class="line">            //animal.call(this,type);//type cute</span><br><span class="line">            //animal.call(this,arguments[1]);//type cute</span><br><span class="line">            //animal.call(this,arguments);//type [&apos;wsscat&apos;,&apos;cute&apos;]</span><br><span class="line">            animal.apply(this,arguments)//type: wsscat</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        console.log(new cat(&apos;wsscat&apos;,&apos;cute&apos;))</span><br></pre></td></tr></table></figure>
+<p><strong>这里用apply就很方便，因为arguments是数组，可以全部传给animal，而call就要一个个地传过去</strong></p>
+<ul>
+<li>animal.call(this);//type undefined</li>
+<li>animal.call(this,type);//type cute</li>
+<li>animal.call(this,arguments[1]);//type cute</li>
+<li>animal.call(this,arguments);//type [‘wsscat’,’cute’]</li>
+<li>animal.apply(this,arguments)//type: wsscat</li>
+</ul>
+<h2 id="继承的优化"><a href="#继承的优化" class="headerlink" title="继承的优化"></a>继承的优化</h2><p>如果构造函数this绑定太多属性（比如一些共同方法），在实例化后会造成浪费，为此我们一般会使用原型链来优化，但是使用原型链之后我们的apply和call的继承方法就会失效<br>为此我们一般使用混合的写法，使用原型链和(apply或者call)方法进行继承<br>具体两句话<br>让子的原型链指向父的实例（父实例化的对象）<br><code>cat.prototype = new animal();</code><br>让父的属性创建在子的this上<br><code>animal.call(this, type)</code><br>整体代码如下，那么就会让父原型链的属性和this上的属性都得到继承</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function animal(type) &#123;</span><br><span class="line">            this.type = type</span><br><span class="line">            this.behavior = function() &#123;</span><br><span class="line">                console.log(this.type + &quot; is running&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        animal.prototype.action = function() &#123;</span><br><span class="line">            console.log(&quot;running&quot;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function cat(name, type) &#123;</span><br><span class="line">            this.name = name</span><br><span class="line">            animal.call(this, type)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cat.prototype = new animal();</span><br><span class="line">        console.log(new cat(&apos;wsscat&apos;, &apos;cute&apos;));</span><br><span class="line">        (new cat(&apos;wsscat&apos;)).action() //running</span><br></pre></td></tr></table></figure>
+<p><a href="https://cloud.githubusercontent.com/assets/17243165/18815677/fde42082-8369-11e6-979d-580453904414.png" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/17243165/18815677/fde42082-8369-11e6-979d-580453904414.png" alt=""></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/18/nodejs/" rel="prev" title="NodeJS 总结">
+                NodeJS 总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#call实现继承"><span class="nav-number">1.</span> <span class="nav-text">call实现继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call实现多重继承"><span class="nav-number">2.</span> <span class="nav-text">call实现多重继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply和call的区别"><span class="nav-number">3.</span> <span class="nav-text">apply和call的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承的优化"><span class="nav-number">4.</span> <span class="nav-text">继承的优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
