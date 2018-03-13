@@ -11,7 +11,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 
+<style>
+    .pace .pace-progress {
+        background: #e90000; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #e90000, 0 0 5px     #e90000; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #e90000;    /*上边框颜色*/
+        border-left-color: #e90000;    /*左边框颜色*/
+    }
+</style>
 
 
 
@@ -398,7 +413,7 @@ $(function() {
 <li>Chrome其实本质上就是V8引擎，用来解析JS的客户端（浏览器）前端部分</li>
 <li>Node其实就死系统上运行V8引擎，用来解析JS的服务端（系统）后端部分</li>
 </ol>
-<p>客户端 浏览器<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">		&lt;title&gt;&lt;/title&gt;</span><br><span class="line">	&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">	&lt;body&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>body&gt;</span><br><span class="line">	&lt;!--以前一定要在浏览器中引入test。js，然后在浏览器打开执行--&gt;</span><br><span class="line">	&lt;script src=<span class="string">"test.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>客户端 浏览器<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">		&lt;title&gt;<span class="xml"><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line">	&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">	&lt;body&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>body&gt;</span><br><span class="line">	&lt;!--以前一定要在浏览器中引入test。js，然后在浏览器打开执行--&gt;</span><br><span class="line">	&lt;script src=<span class="string">"test.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>服务端 系统环境<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node xxx.js</span><br></pre></td></tr></table></figure></p>
 <p>可以省略<code>.js</code>后缀<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node test.js</span><br><span class="line"><span class="comment">//相当于</span></span><br><span class="line">node test</span><br></pre></td></tr></table></figure></p>
 <p>如果test都是指定同一个端口，只能成功运行一个test.js</p>
@@ -426,13 +441,13 @@ $(function() {
 </tr>
 </tbody>
 </table>
-<p>前端里面<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"method.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"test.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>前端里面<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"method.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script src=<span class="string">"test.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <p>methods.js模块<br>export导出模块 类似以前require.js的define方法，导出对象，数字，字符串，数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">exports.func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		name: <span class="string">"abc"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">exports.name = <span class="string">"laoxie"</span></span><br></pre></td></tr></table></figure></p>
 <p>require导入模块 跟require的require方法类似，导出是一个对象</p>
 <p>export指向module.export，module.export指向一个空对象，export方法就是依赖于module.export<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> = <span class="built_in">module</span>.export = &#123;&#125;<span class="comment">//module.export的指向是不能被改变的</span></span><br><span class="line"><span class="keyword">export</span> = <span class="built_in">module</span>.export = &#123;<span class="attr">name</span>:<span class="string">"wscats"</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">"./method.js"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(b)<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">	name: &quot;wscats&quot;,</span><br><span class="line">	add: function(a, b) &#123;</span><br><span class="line">		return a + b;</span><br><span class="line">	&#125;,</span><br><span class="line">	sub: function(a, b) &#123;</span><br><span class="line">		return a - b;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;//这种写法了先创建对象(指针就改变了)，然后赋属性值</span><br><span class="line">module.exports.name = &quot;wscats&quot;,//module.exports原本就是一个对象，往自己对象上添加属性值</span><br><span class="line">exports.name = &quot;wscats&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="区分模块"><a href="#区分模块" class="headerlink" title="区分模块"></a>区分模块</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jq相当于第三模块</span></span><br><span class="line">&lt;script src=<span class="string">"jquery.js"</span>&gt;&lt;/script&gt;</span><br><span class="line"><span class="comment">//相当于自定义模块</span></span><br><span class="line">&lt;script src=<span class="string">"method.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">"test.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="区分模块"><a href="#区分模块" class="headerlink" title="区分模块"></a>区分模块</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jq相当于第三模块</span></span><br><span class="line">&lt;script src=<span class="string">"jquery.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">//相当于自定义模块</span></span><br><span class="line">&lt;script src=<span class="string">"method.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script src=<span class="string">"test.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <ol>
 <li><strong>自定义模块</strong> 自己封装的方法</li>
 <li><strong>第三方模块</strong> 别人写好的模块(就是从NPM下载的模块) 比如gulp</li>
@@ -625,18 +640,14 @@ $(function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/18/angular/" rel="next" title="Angular1x MVC框架">
-                <i class="fa fa-chevron-left"></i> Angular1x MVC框架
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/02/vue-cli/" rel="prev" title="vue-cli快速搭建vue项目">
-                vue-cli快速搭建vue项目 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/18/call&apply/" rel="prev" title="Javascript中的apply和call继承">
+                Javascript中的apply和call继承 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -800,25 +811,32 @@ $(function() {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Allwona</span>
+  <span class="post-meta-divider">|</span>
+  <span class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+    本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </span>
 
   
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  
 
 
 
-  <span class="post-meta-divider">|</span>
+  <span class="post-meta-divider"></span>
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  
 
 
 
