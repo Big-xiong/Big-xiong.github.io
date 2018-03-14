@@ -1090,7 +1090,7 @@ pre .javascript .function {
   bottom: 19px;
 }
 .header {
-  background: transparent;
+  background: url("../../../images/ironman2.png");
 }
 .header-inner {
   position: relative;
@@ -1113,7 +1113,6 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 40px;
   color: #fff;
-  background: #222;
   border-bottom: none;
 }
 .brand:hover {
@@ -1188,6 +1187,9 @@ pre .javascript .function {
   margin-top: 20px;
   padding-left: 0;
   text-align: center;
+  background-color: rgba(255,255,255,0.8);
+  width: 300px;
+  margin-left: 200px;
 }
 .menu .menu-item {
   display: inline-block;
@@ -1822,7 +1824,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #cb26a1;
+  background: #49f962;
 }
 .links-of-blogroll {
   font-size: 13px;
